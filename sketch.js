@@ -26,7 +26,7 @@ let meusPontos = 0
 let pontosDoOponente = 0
 
 //Sons do jogo
-let aquetada;
+let raquetada;
 let ponto;
 let trilha;
 
@@ -48,9 +48,7 @@ function draw() {
    verificaColisaoBorda();
    mostraRaquete(xRaquete, yRaquete);
    movimentaMinhaRaquete();
-   //verificaColisaoRaquete();
    verificaColisaoRaquete(xRaquete, yRaquete);
-   colisaoMinhaRaqueteBiblioteca();
    mostraRaquete(xRaqueteOponente, yRaqueteOponente);
    movimentaRaqueteOponente();
    verificaColisaoRaquete(xRaqueteOponente, yRaqueteOponente);
@@ -98,24 +96,25 @@ function verificaColisaoRaquete(){
    if (xBolinha - raio < xRaquete + raqueteComprimento && 
        yBolinha - raio < yRaquete + raqueteAltura && 
        yBolinha + raio > yRaquete){
-        velocidadeXBolinha *= -1;
-        raquetada.play();
+       velocidadeXBolinha *= -1;
+       
    }  
 }
 
-function colisaoMinhaRaqueteBiblioteca() {
-    colidiu = collideRectCircle (xRaquete, yRaquete,
-    raqueteComprimento, raqueteAltura, xBolinha, yBolinha,
-    raio);
+function verificaColisaoRaquete(x, y) {
+   colidiu = collideRectCircle (x, y, 
+   raqueteComprimento, raqueteAltura, xBolinha, yBolinha,
+   raio);
     if (colidiu) {
       velocidadeXBolinha *= -1;
+      raquetada.play();
     }
   }
  
 function movimentaRaqueteOponente(){
-    velocidadeYOponente = yBolinha -yRaqueteOponente - 
+   velocidadeYOponente = yBolinha - yRaqueteOponente - 
    raqueteComprimento / 2 - 30;
-    yRaqueteOponente += velocidadeYBolinha
+   yRaqueteOponente += velocidadeYBolinha
 }
 
 function incluiPlacar(){
@@ -123,13 +122,13 @@ function incluiPlacar(){
     textAlign(CENTER);
     textSize(16);
     fill(color(255, 140, 0));
-    rect(1501, 10, 40, 20);
+    rect(180, 10, 40, 20);
     fill(255);
-    text(meusPontos, 170, 26);
+    text(meusPontos, 200, 26);
     fill(color(255, 140, 0));
-    rect(450, 10, 40, 20);
+    rect(380, 10, 40, 20);
     fill(255);
-    text(pontosDoOponente, 470, 26);
+    text(pontosDoOponente, 400, 26);
 }
 
 function marcaPonto(){
@@ -138,7 +137,7 @@ function marcaPonto(){
         ponto.play();
     }
     if (xBolinha < 10){
-        pontosDoOponente =+ 1
+        pontosDoOponente += 1
         ponto.play();
     }
 }
